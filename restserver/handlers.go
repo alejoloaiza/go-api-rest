@@ -1,6 +1,7 @@
 package restserver
 
 import (
+	"fmt"
 	"net/http"
 	"strconv"
 
@@ -16,6 +17,7 @@ func GetAssets(w http.ResponseWriter, r *http.Request) {
 	var allPoints []float64
 	params := mux.Vars(r)
 	if params["points"] != "" {
+		fmt.Println(params["points"])
 		pointsParam := strings.Split(params["points"], ",")
 		for _, curPoint := range pointsParam {
 			appendPoint, err := strconv.ParseFloat(curPoint, 64)
@@ -24,11 +26,8 @@ func GetAssets(w http.ResponseWriter, r *http.Request) {
 			}
 			allPoints = append(allPoints, appendPoint)
 		}
-		GetAssetsByPolygon(allPoints)
+		e.DBGetAllPostgres(allPoints)
 	}
 
 	//json.NewEncoder(w).Encode(&extra.Assets{})
-}
-func GetAssetsByPolygon(points []float64) {
-
 }
