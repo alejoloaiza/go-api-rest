@@ -1,59 +1,34 @@
 package restserver
 
 import (
-	"encoding/json"
 	"net/http"
+	"strconv"
+
+	e "go-rest-api/extra"
+	"strings"
 
 	"github.com/gorilla/mux"
 )
 
-var people []Person
+var ResultAssets []e.Asset
 
-type Person struct {
-	ID        string   `json:"id,omitempty"`
-	Firstname string   `json:"firstname,omitempty"`
-	Lastname  string   `json:"lastname,omitempty"`
-	Address   *Address `json:"address,omitempty"`
-}
-type Address struct {
-	City  string `json:"city,omitempty"`
-	State string `json:"state,omitempty"`
-}
-
-func GetPeople(w http.ResponseWriter, r *http.Request) {
-	json.NewEncoder(w).Encode(people)
-}
-
-// Display a single data
-func GetPerson(w http.ResponseWriter, r *http.Request) {
+func GetAssets(w http.ResponseWriter, r *http.Request) {
+	var allPoints []float64
 	params := mux.Vars(r)
-	for _, item := range people {
-		if item.ID == params["id"] {
-			json.NewEncoder(w).Encode(item)
-			return
+	if params["points"] != "" {
+		pointsParam := strings.Split(params["points"], ",")
+		for _, curPoint := range pointsParam {
+			appendPoint, err := strconv.ParseFloat(curPoint, 64)
+			if err != nil {
+				continue
+			}
+			allPoints = append(allPoints, appendPoint)
 		}
+		GetAssetsByPolygon(allPoints)
 	}
-	json.NewEncoder(w).Encode(&Person{})
-}
 
-// create a new item
-func CreatePerson(w http.ResponseWriter, r *http.Request) {
-	params := mux.Vars(r)
-	var person Person
-	_ = json.NewDecoder(r.Body).Decode(&person)
-	person.ID = params["id"]
-	people = append(people, person)
-	json.NewEncoder(w).Encode(people)
+	//json.NewEncoder(w).Encode(&extra.Assets{})
 }
+func GetAssetsByPolygon(points []float64) {
 
-// Delete an item
-func DeletePerson(w http.ResponseWriter, r *http.Request) {
-	params := mux.Vars(r)
-	for index, item := range people {
-		if item.ID == params["id"] {
-			people = append(people[:index], people[index+1:]...)
-			break
-		}
-		json.NewEncoder(w).Encode(people)
-	}
 }
