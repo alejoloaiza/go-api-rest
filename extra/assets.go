@@ -6,20 +6,20 @@ import (
 )
 
 type Asset struct {
-	Business string  `json:"business,omitempty"`
-	Code     string  `json:"code,omitempty"`
-	Type     string  `json:"type,omitempty"`
-	Agency   string  `json:"agency,omitempty"`
-	Location string  `json:"location,omitempty"`
-	City     string  `json:"city,omitempty"`
-	Area     string  `json:"area,omitempty"`
-	Price    string  `json:"price,omitempty"`
-	Numrooms string  `json:"numrooms,omitempty"`
-	Numbaths string  `json:"numbaths,omitempty"`
-	Status   bool    `json:"status,omitempty"`
-	Link     string  `json:"link,omitempty"`
-	Lat      float64 `json:"lat,omitempty"`
-	Lon      float64 `json:"lon,omitempty"`
+	Business string  `json:"business"`
+	Code     string  `json:"code"`
+	Type     string  `json:"type"`
+	Agency   string  `json:"agency"`
+	Location string  `json:"location"`
+	City     string  `json:"city"`
+	Area     string  `json:"area"`
+	Price    string  `json:"price"`
+	Numrooms string  `json:"numrooms"`
+	Numbaths string  `json:"numbaths"`
+	Status   bool    `json:"status"`
+	Link     string  `json:"link"`
+	Lat      float64 `json:"lat"`
+	Lon      float64 `json:"lon"`
 }
 
 func (a *Asset) ToJSON() string {
