@@ -1,3 +1,3 @@
 .vscode/*
 go-rest-api
-extra/db.go
+extra/config.json
