@@ -11,7 +11,8 @@ var dbpostgre *sql.DB
 var err error
 
 func DBConnectPostgres() {
-	psqlInfo := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable", Localconfig.DBHost, Localconfig.DBPort, Localconfig.DBUser, Localconfig.DBPass, Localconfig.DBName)
+	psqlInfo := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable", Localconfig.DBHost[0], Localconfig.DBPort[0], Localconfig.DBUser[0], Localconfig.DBPass[0], Localconfig.DBName[0])
+	//fmt.Println(psqlInfo)
 	dbpostgre, err = sql.Open("postgres", psqlInfo)
 	if err != nil {
 		panic(err)
