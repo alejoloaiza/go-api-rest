@@ -1,6 +1,7 @@
 package restserver
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 	"strconv"
@@ -11,7 +12,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
-var ResultAssets []e.Asset
+//var ResultAssets []e.Asset
 
 func GetAssets(w http.ResponseWriter, r *http.Request) {
 	var allPoints []float64
@@ -26,7 +27,8 @@ func GetAssets(w http.ResponseWriter, r *http.Request) {
 			}
 			allPoints = append(allPoints, appendPoint)
 		}
-		e.DBGetAllPostgres(allPoints)
+		dbresult := e.DBGetAllPostgres(allPoints)
+		json.NewEncoder(w).Encode(&dbresult)
 	}
 
 	//json.NewEncoder(w).Encode(&extra.Assets{})
