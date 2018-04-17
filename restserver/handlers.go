@@ -2,7 +2,6 @@ package restserver
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"strconv"
 
@@ -14,11 +13,11 @@ import (
 
 //var ResultAssets []e.Asset
 
-func GetAssets(w http.ResponseWriter, r *http.Request) {
+func GetAssetsByPolygon(w http.ResponseWriter, r *http.Request) {
 	var allPoints []float64
 	params := mux.Vars(r)
 	if params["points"] != "" {
-		fmt.Println(params["points"])
+		//fmt.Println(params["points"])
 		pointsParam := strings.Split(params["points"], ",")
 		for _, curPoint := range pointsParam {
 			appendPoint, err := strconv.ParseFloat(curPoint, 64)
